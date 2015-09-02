@@ -1,0 +1,7 @@
+tornado
+Flask
+twitter
+Flask-CouchDB
+couchdb
+numpy
+

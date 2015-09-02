@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!--[if lte IE 8]>
+        <script src="{{ url_for('static', filename='assets/js/ie/html5shiv.js') }}"></script><![endif]-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}"/>
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie8.css') }}"/><![endif]-->
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie9.css') }}"/><![endif]-->
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>
+            body {
+                margin: 0px;
+                overflow: hidden;
+                background-color: #f0f0f0;
+            }
+
+            .info {
+                position: absolute;
+                # background-color: black;
+                opacity: 0.8;
+                color: black;
+                text-align: center;
+                font-size: 14pt;
+                width: 100%;
+                z-index: 99;
+            }
+
+            #info {
+                top: 0px;
+                min-height: 30px;
+            }
+
+            #info_stick {
+                bottom: 0px;
+                min-height: 30px;
+            }
+
+            #container {
+                position: absolute;
+                top: 0;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="info" id="info">
+            <i>Hover on the points to see the tweets</i>
+        </div>
+        <div id="container"></div>
+        <div class="info" id="info_stick">
+            <i>Click on any point to stick the corresponding tweet here</i>
+        </div>
+
+        <script src="{{ url_for('static', filename='assets/js/jquery-1.11.3.min.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='assets/js/threejs/three.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/threejs/TrackballControls.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='assets/js/tweetviz.js') }}"></script>
+        <script>
+        var tweets = [];
+        var userName = "{{ username }}";
+
+        $(document).ready(function() {
+          var request = $.ajax({ type: "GET", url: "/query/" + userName });
+
+          request.done(function(data) {
+            if (data.working || data.has_error) {
+              return;
+            }
+            tweets = data.points;
+            init();
+            animate();
+          });
+        });
+        </script>
+    </body>
+</html>

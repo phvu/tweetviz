@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<!--
+	Retrospect by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+    <title>TweetViz</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/jquery-ui.theme.min.css') }}">
+
+    <!--[if lte IE 8]>
+    <script src="{{ url_for('static', filename='assets/js/ie/html5shiv.js') }}"></script><![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}"/>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie8.css') }}"/><![endif]-->
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie9.css') }}"/><![endif]-->
+
+    <style>
+    .ui-widget-header {
+        font-size: 10pt;
+		font-weight: 1;
+		line-height: 1em;
+    }
+    .ui-widget-content {
+        font-size: 10pt;
+		font-weight: 1;
+		line-height: 1em;
+    }
+    .ui-button {
+        min-width: 1em;
+    }
+    .ui-dialog-titlebar-close {
+        display: none;
+    }
+    .error-detail {
+        font-size: 85%;
+    }
+    </style>
+</head>
+<body class="landing">
+
+<!-- Header -->
+<header id="header" class="alt">
+    <h1><a href="#">TweetViz</a></h1>
+    <a href="#nav">Menu</a>
+</header>
+
+<!-- Nav -->
+<nav id="nav">
+    <ul class="links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#viz">Viz</a></li>
+        <li><a href="#qa">Q&A</a></li>
+    </ul>
+</nav>
+
+<!-- Banner -->
+<section id="banner">
+    <i class="icon fa-diamond"></i>
+
+    <h2>Tweets (deep) visualization</h2>
+
+    <p>Powered by skip-thought vectors and t-SNE</p>
+    <ul class="actions">
+        <li><a href="#viz" class="button big special">Go</a></li>
+    </ul>
+</section>
+
+<!-- Visualization -->
+<section id="viz" class="wrapper special">
+    <div class="inner">
+        <form id="frmUsername" action="">
+            <label for="inpUserName" style="display: inline; margin-right: 1%">Twitter username:</label>
+            <input type="text" id="inpUserName" name="username" value="natesilver538" style="width: 50%; display: inline; height: 3em;" />
+            <input type="submit" value="Go" style="display: inline; margin-left: 1%"/>
+        </form>
+        <iframe class="image-grid" id="vizContainer" allowfullscreen=""
+                onmousewheel="" src="/viz/natesilver538"></iframe>
+    </div>
+
+</section>
+
+<!-- Q&A -->
+<section id="qa" class="wrapper style1">
+    <div class="inner">
+        <article class="feature right">
+            <span class="image"><img src="{{ url_for('static', filename='images/pic01a.png') }}" alt=""/></span>
+
+            <div class="content" style="text-align: justify;">
+
+                <p><b>What should I expect to see?</b></p>
+                <p>As you move around in the 3-dimensional space, each point is a tweet of the given
+                    user. The points close to each other tend to have similar "semantic", different
+                    clusters of points might represent different "topics" in user's tweets.</p>
+                <p>Note that this "semantic" is computed by skip-thought, which might or might not
+                    make a lot of sense. Given the short amount of text in tweets, it is often not very
+                    clear how the tweets are clustered. However, there might be some patterns,
+                    for instance you might find groups of retweets, groups of tweets containing links,
+                    tweets starting with an @-mention, etc..</p>
+            </div>
+        </article>
+        <article class="feature left">
+            <span class="image"><img src="{{ url_for('static', filename='images/pic02a.jpg') }}" alt=""/></span>
+
+            <div class="content" style="text-align: justify;">
+                <p><b>How does this work?</b></p>
+                <p>Nothing actually works. Those points are all randomly generated.</p>
+                <p>Just kidding. It does work.<br/>
+                    Essentially, each tweet is transformed into a 4800 dimensional feature vector
+                    using <a href="http://arxiv.org/abs/1506.06726" target="_blank">skip-thoughts</a>,
+                    those features are then projected into 3-dimensional space
+                    using <a href="http://lvdmaaten.github.io/tsne/" target="_blank">t-SNE</a>.
+                    Everything is computed when you hit "Go". We only collect at most 200 latest public tweets.
+                    The final result is cached.</p>
+            </div>
+        </article>
+
+        <article class="feature right">
+            <span class="image"><img src="{{ url_for('static', filename='images/pic03a.jpg') }}" alt=""/></span>
+            <div class="content" style="text-align: justify;">
+                <p><b>Eager for more?</b></p>
+                <p>Check out our blog on <a href="https://medium.com/deep-learning-101/" target="_blank">medium</a>,
+                    where we publish articles related to Deep Learning every now and then.</p>
+                <p>
+                    You might also want to check <a href="http://adatao.com/" target="_blank">my employer</a>,
+                    since we are <a href="http://adatao.com/company/#join-us" target="_blank">hiring</a>!</p>
+            </div>
+
+        </article>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="inner">
+        <ul class="icons">
+            <li><a href="https://medium.com/deep-learning-101/" target="_blank" class="icon fa-medium">
+                <span class="label">Medium</span>
+            </a></li>
+            <li><a href="http://phvu.net" target="_blank" class="icon fa-wordpress">
+                <span class="label">Wordpress</span>
+            </a></li>
+            <li><a href="https://twitter.com/phvu" target="_blank" class="icon fa-twitter">
+                <span class="label">Twitter</span>
+            </a></li>
+            <li><a href="https://github.com/phvu" target="_blank" class="icon fa-github">
+                <span class="label">Github</span>
+            </a></li>
+            <li><a href="https://fr.linkedin.com/in/vuphoai" target="_blank" class="icon fa-linkedin">
+                <span class="label">LinkedIn</span>
+            </a></li>
+        </ul>
+        <ul class="copyright">
+            <li>&copy; <a href="http://phvu.net">Vu Pham</a>.</li>
+            <li>Images: <a href="http://unsplash.com">Unsplash</a>.</li>
+            <li>Design: <a href="http://templated.co">TEMPLATED</a>.</li>
+        </ul>
+    </div>
+</footer>
+
+<div id="dlgWait" title="Please wait">
+  <p>
+    <span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 50px 0;"></span>
+    Please wait while we are doing some maths...
+  </p>
+  <div style="margin-left: auto; margin-right: auto; width: 35px;">
+      <img src="{{ url_for('static', filename='images/loading.gif') }}">
+  </div>
+</div>
+<div id="dlgError" title="Error">
+  <p>
+    <span class="ui-icon ui-icon-circle-minus" style="float:left; margin:0 7px 50px 0;"></span>
+    We got an error trying to compute. Maybe the user name was wrong?
+  </p>
+  <p>Error detail:</p>
+  <p id="pErrorDetail" class="error-detail"></p>
+</div>
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='assets/js/jquery-1.11.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery-ui.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+<!--[if lte IE 8]>
+<script src="{{ url_for('static', filename='assets/js/ie/respond.min.js') }}"></script><![endif]-->
+<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+<script>
+var lastUsername = 'natesilver538';
+
+$( "#frmUsername" ).submit(function( event ) {
+  userName = $("#inpUserName").val();
+
+  $("#dlgWait").dialog("open");
+
+  var waitingTimer;
+  waitingTimer = setInterval(function() {
+    $.ajax({ type: "GET", url: "/query/" + userName }).done(function(data) {
+      if (!data.working) {
+        $("#dlgWait").dialog("close");
+        if (data.has_error) {
+          $("#pErrorDetail").text(data.error);
+          $("#dlgError").dialog("open");
+          $("#inpUserName").val(lastUsername);
+        } else {
+          document.getElementById("vizContainer").src = "/viz/" + userName;
+          lastUsername = userName;
+        }
+        clearInterval(waitingTimer);
+      }
+    });
+  }, 500);
+
+  event.preventDefault();
+  return false;
+});
+
+$(function() {
+  $( "#dlgWait" ).dialog({
+    modal: true,
+    width: 460,
+    autoOpen: false,
+    closeOnEscape: false
+  });
+
+  $( "#dlgError" ).dialog({
+    modal: true,
+    width: 460,
+    dialogClass: "error",
+    autoOpen: false,
+    buttons: {
+        "Ok" : function () {
+            $(this).dialog("close");
+        }
+    },
+  });
+
+});
+</script>
+
+</body>
+</html>
