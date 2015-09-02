@@ -5,7 +5,9 @@ Basically you will need to install Theano (and CUDA if you want to use GPUs), th
 
     pip install -r requirements.txt
     ./setup.sh
-    
-Update the configuration parameters in `conf.py`, then start the server with:
+
+Install and start `couchdb` on your system.
+
+Then update the configuration parameters in `conf.py`, and start the server with:
         
     ./run_server.sh
