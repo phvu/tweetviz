@@ -4,4 +4,4 @@ twitter
 Flask-CouchDB
 couchdb
 numpy
-
+nltk
